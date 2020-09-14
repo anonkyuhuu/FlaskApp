@@ -1,0 +1,91 @@
+{% extends "home.html" %}
+{% block title %}Simple Crud Python{% endblock %}
+{% block body %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 pt-3">
+          <h5>Manage Employes <button type="button" class="btn btn-primary float-right ml-auto" data-toggle="modal"  data-target="#modal">Add New Employes</button></h5>
+          <table class="table table-hover table-striped mt-4">
+            <tr>
+              <th>ID</td>
+              <th>Name</td>
+              <th>Email</td>
+              <th>Phone</td>
+              <th>Action</td>
+            </tr>
+            {% for data in employes %}
+            <tr>
+              <td>{{data.id}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.phone}}</td>
+              <td>
+                <a href="/edit/{{data.id}}" class="btn btn-success btn-xs" data-toggle="modal" data-target="#edit{{data.id}}">Edit</a>
+                <a href="/delete/{{data.id}}" class="btn btn-danger btn-xs">Delete</a>
+              </td>
+            </tr>
+            <div class="modal" id="edit{{data.id}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header"><h5 class="modal-title">Add Employe</h5></div>
+                    <div class="modal-body">
+                      <form action="/edit/{{data.id}}" method="POST">
+                        <div class="form-group">
+                          <label>Name:</label>
+                          <input type="hidden" name="id" value={{data.id}}>
+                          <input type="text" class="form-control" name="name" required="-1" value={{data.name}}>
+                        </div>
+                        <div class="form-group">
+                          <label>Email:</label>
+                          <input type="email" class="form-control" name="email" required="-1" value={{data.email}}>
+                        </div>
+                        <div class="form-group">
+                          <label>Phone:</label>
+                          <input type="number" class="form-control" name="phone" required="-1" value={{data.phone}}>
+                        </div>
+                        <div class="form-group">
+                          <button class="btn btn-primary">Update Employe</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </table>
+          <div class="modal" id="modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Add Employe</h5></div>
+                <div class="modal-body">
+                  <form action="/" method="POST">
+                    <div class="form-group">
+                      <label>Name:</label>
+                      <input type="text" class="form-control" name="name" required="-1">
+                    </div>
+                    <div class="form-group">
+                      <label>Email:</label>
+                      <input type="email" class="form-control" name="email" required="-1">
+                    </div>
+                    <div class="form-group">
+                      <label>Phone:</label>
+                      <input type="number" class="form-control" name="phone" required="-1">
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary">Add Employe</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
