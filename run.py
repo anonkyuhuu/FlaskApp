@@ -10,7 +10,6 @@ app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///employes.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=True
 
 db = SQLAlchemy(app)
-db.create_all()
 
 class Employe(db.Model):
   
@@ -60,4 +59,5 @@ def deletes(id):
   
   
 if __name__ == "__main__":
+  db.create_all()
   app.run(host="0.0.0.0",port=5000, debug=True)
